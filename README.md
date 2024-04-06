@@ -120,6 +120,37 @@ df
 df["Moderate Negative Skew_yeojohnson"],parameters=stats.yeojohnson(df["Moderate Negative Skew"])
 df.skew()
 ```
+### Quantile Transformation
+```
+from sklearn.preprocessing import QuantileTransformer
+import seaborn as sns
+import statsmodels.api as sm
+import matplotlib.pyplot as plt
+qt=QuantileTransformer(output_distribution='normal')
+df["Moderate Negative Skew_1"]=qt.fit_transform(df[["Moderate Negative Skew"]])
+
+sm.qqplot(df["Moderate Negative Skew"],line='45')
+plt.show()
+```
+```
+sm.qqplot(np.reciprocal(df["Moderate Negative Skew"]),line='45')
+plt.show()
+```
+```
+qt=QuantileTransformer(output_distribution='normal',n_quantiles=891)
+df["Moderate Negative Skew"]=qt.fit_transform(df[["Moderate Negative Skew"]])
+sm.qqplot(df["Moderate Negative Skew"],line='45')
+plt.show()
+```
+```
+df["Highly Negative Skew_1"]=qt.fit_transform(df[["Highly Negative Skew"]])
+sm.qqplot(df['Highly Negative Skew'],line='45')
+plt.show()
+```
+```
+sm.qqplot(df['Highly Negative Skew_1'],line='45')
+plt.show()
+```
 # RESULT:
   Thus the given data, Feature Encoding, Transformation process and save the data to a file was performed successfully.    
 
