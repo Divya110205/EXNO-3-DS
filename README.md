@@ -49,8 +49,78 @@ We use this categorical data encoding technique when the features are nominal(do
 • Yeojohnson method
 
 # CODING AND OUTPUT:
-       # INCLUDE YOUR CODING AND OUTPUT SCREENSHOTS HERE
+## FEATURE ENCODING:
+### 1.Ordinal Encoding
+```
+import pandas as pd
+df=pd.read_csv('/content/Encoding Data.csv')
+from sklearn.preprocessing import LabelEncoder,OrdinalEncoder
+pm=['Blue','Green','Red']
+e1=OrdinalEncoder(categories=[pm])
+e1.fit_transform(df[["nom_0"]])
+df['bo2']=e1.fit_transform(df[["nom_0"]])
+df
+```
+### 2.Label Encoding
+```
+le=LabelEncoder()
+dfc=df.copy()
+dfc['nom_0']=le.fit_transform(dfc['nom_0'])
+dfc
+```
+### 3.Binary Encoding
+```
+from category_encoders import BinaryEncoder
+df=pd.read_csv("/content/data.csv")
+be=BinaryEncoder()
+nd=be.fit_transform(df['Ord_1'])
+df1=pd.concat([df,nd],axis=1)
+df2=df.copy()
+df1
+```
+### 4.One Hot Encoding
+```
+from sklearn.preprocessing import OneHotEncoder
+ohe=OneHotEncoder(sparse=False)
+df2=dfc.copy()
+enc=pd.DataFrame(ohe.fit_transform(df2[['ord_2']]))
+df2=pd.concat([df2,enc],axis=1)
+pd.get_dummies(df2,columns=["ord_2"])
+df2
+```
+## Feature Transformation
+### Log Transformation
+```
+import pandas as pd
+from scipy import stats
+import numpy as np
+df=pd.read_csv("/content/Data_to_Transform.csv")
+df.skew()
+np.log(df["Highly Negative Skew"])
+```
+### Reciprocal Transformation
+```
+np.reciprocal(df["Moderate Negative Skew"])
+```
+### Square Root Transformation
+```
+np.sqrt(df["Highly Negative Skew"])
+```
+### Square Transformation
+```
+np.square(df["Highly Negative Skew"])
+```
+### Boxcox method
+```
+df["Highly Positive Skew_boxcox"],parameters=stats.boxcox(df["Highly Positive Skew"])
+df
+```
+### Yeojohnson method
+```
+df["Moderate Negative Skew_yeojohnson"],parameters=stats.yeojohnson(df["Moderate Negative Skew"])
+df.skew()
+```
 # RESULT:
-       # INCLUDE YOUR RESULT HERE
+      
 
        
